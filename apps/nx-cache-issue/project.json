@@ -133,23 +133,6 @@
           "workerIdleMemoryLimit": "500MB"
         }
       }
-    },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "defaultConfiguration": "development",
-      "options": {
-        "buildTarget": "nx-cache-issue:build",
-        "port": 4200,
-        "spa": true
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "nx-cache-issue:build:development"
-        },
-        "production": {
-          "buildTarget": "nx-cache-issue:build:production"
-        }
-      }
     }
   },
   "tags": []
