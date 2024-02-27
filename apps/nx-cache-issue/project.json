@@ -84,24 +84,6 @@
           ]
         }
       }
-    },
-    "serve": {
-      "executor": "@nx/angular:module-federation-dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "nx-cache-issue:build:production"
-        },
-        "development": {
-          "buildTarget": "nx-cache-issue:build:dev"
-        },
-        "e2e-grid": {
-          "buildTarget": "nx-cache-issue:build:e2e-grid"
-        }
-      },
-      "defaultConfiguration": "development",
-      "options": {
-        "proxyConfig": "proxy.conf.js"
-      }
     }
   },
   "tags": []
