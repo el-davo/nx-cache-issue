@@ -1,0 +1,72 @@
+{
+  "name": "nx-cache-issue",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "nx-cache-issue",
+  "sourceRoot": "apps/nx-cache-issue/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/nx-cache-issue",
+        "index": "apps/nx-cache-issue/src/index.html",
+        "main": "apps/nx-cache-issue/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/nx-cache-issue/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/nx-cache-issue/src/favicon.ico",
+          "apps/nx-cache-issue/src/assets"
+        ],
+        "styles": ["apps/nx-cache-issue/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "nx-cache-issue:build:production"
+        },
+        "development": {
+          "buildTarget": "nx-cache-issue:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "nx-cache-issue:build"
+      }
+    }
+  }
+}

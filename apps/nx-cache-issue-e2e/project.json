@@ -1,0 +1,8 @@
+{
+  "name": "nx-cache-issue-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/nx-cache-issue-e2e/src",
+  "targets": {},
+  "implicitDependencies": ["nx-cache-issue"]
+}
