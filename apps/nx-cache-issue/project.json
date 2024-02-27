@@ -150,22 +150,6 @@
           "buildTarget": "nx-cache-issue:build:production"
         }
       }
-    },
-    "sonar": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "sonar-scanner -Dsonar.projectKey=thunder-ui_{projectName} -Dsonar.sources={projectRoot}/src/app -Dsonar.inclusions={projectRoot}/src/app/** -Dsonar.typescript.tsconfigPath={projectRoot}/tsconfig.json -Dsonar.typescript.lcov.reportPaths=coverage/apps/{projectName}/lcov.info -Dsonar.coverage.exclusions=**/*.spec.ts,**/*.module.ts"
-        ]
-      }
-    },
-    "e2e": {
-      "executor": "@nx/playwright:playwright",
-      "outputs": ["{workspaceRoot}/dist/.playwright/apps/nx-cache-issue"],
-      "options": {
-        "config": "apps/nx-cache-issue/playwright.config.ts",
-        "skipInstall": true
-      }
     }
   },
   "tags": ["playwright"]
