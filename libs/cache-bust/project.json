@@ -1,0 +1,26 @@
+{
+  "name": "cache-bust",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/cache-bust/src",
+  "prefix": "nx-cache-issue",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/cache-bust/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/cache-bust/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/cache-bust/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  }
+}
