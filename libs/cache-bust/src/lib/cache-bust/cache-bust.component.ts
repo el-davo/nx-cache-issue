@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'nx-cache-issue-cache-bust',
@@ -8,4 +8,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './cache-bust.component.html',
   styleUrl: './cache-bust.component.css',
 })
-export class CacheBustComponent {}
+export class CacheBustComponent {
+  test = 'hello1';
+}
