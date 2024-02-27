@@ -11,5 +11,5 @@ import { NxWelcomeComponent } from './nx-welcome.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'nx-sdfgsdfg-dfghddfghdfghdtryetrygh';
+  title = 'nx-sdfgsdfg-t24352345';
 }
