@@ -9,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './cache-bust.component.css',
 })
 export class CacheBustComponent {
-  test = '23452345dfgh141234123123';
+  test = '23452345dfgh141234123123123';
 }
