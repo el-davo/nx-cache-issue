@@ -1,18 +1,21 @@
 {
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "production": [
-      "default",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.js",
-      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-      "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s"
-    ],
-    "sharedGlobals": []
+  "affected": {
+    "defaultBase": "origin/develop"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@pellegrims/nx-remotecache-s3",
+      "options": {
+        "endpoint": "https://cloudstorage-onefs-rr2.us.dell.com",
+        "bucket": "nx-cache",
+        "region": "round-rock",
+        "forcePathStyle": true,
+        "readOnly": true,
+        "silent": true,
+        "read": false,
+        "write": false
+      }
+    }
   },
   "targetDefaults": {
     "build": {
@@ -76,40 +79,59 @@
       "inputs": ["production", "^production"]
     }
   },
-
-  "plugins": [
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
-    {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
-      }
-    },
-    {
-      "plugin": "@nx/playwright/plugin",
-      "options": {
-        "targetName": "e2e"
-      }
-    }
-  ],
+  "workspaceLayout": {
+    "appsDir": "projects",
+    "libsDir": "libs"
+  },
+  "cli": {
+    "analytics": false
+  },
   "generators": {
     "@nx/angular:application": {
       "e2eTestRunner": "playwright",
       "linter": "eslint",
       "style": "scss",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "prefix": "thunder"
+    },
+    "@nx/angular:remote": {
+      "style": "scss",
+      "linter": "eslint",
+      "e2eTestRunner": "playwright",
+      "prefix": "thunder"
     },
     "@nx/angular:library": {
       "linter": "eslint",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "style": "scss",
+      "importPath": "@thunder/",
+      "prefix": "thunder",
+      "buildable": true
     },
     "@nx/angular:component": {
-      "style": "css"
+      "style": "scss"
     }
+  },
+  "defaultProject": "thunder",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": [],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/cypress/**/*",
+      "!{projectRoot}/**/*.cy.[jt]s?(x)",
+      "!{projectRoot}/cypress.config.[jt]s",
+      "!{projectRoot}/playwright.config.[jt]s",
+      "!{projectRoot}/test-setup.[jt]s"
+    ]
   }
 }
