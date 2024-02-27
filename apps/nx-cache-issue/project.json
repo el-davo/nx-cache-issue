@@ -102,37 +102,6 @@
       "options": {
         "proxyConfig": "proxy.conf.js"
       }
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "landing:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "./apps/nx-cache-issue/src/**/*.ts",
-          "apps/nx-cache-issue/src/**/*.html"
-        ]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/nx-cache-issue/jest.config.ts",
-        "passWithNoTests": true,
-        "maxWorkers": "50%"
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "runInBand": true,
-          "workerIdleMemoryLimit": "500MB"
-        }
-      }
     }
   },
   "tags": []
