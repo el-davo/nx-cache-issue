@@ -21,6 +21,22 @@
         }
       },
       "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/cache-bust/jest.config.ts",
+        "passWithNoTests": true,
+        "maxWorkers": "50%"
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "runInBand": true,
+          "workerIdleMemoryLimit": "500MB"
+        }
+      }
     }
   }
 }
