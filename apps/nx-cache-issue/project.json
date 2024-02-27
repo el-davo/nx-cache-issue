@@ -2,71 +2,171 @@
   "name": "nx-cache-issue",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "nx-cache-issue",
   "sourceRoot": "apps/nx-cache-issue/src",
-  "tags": [],
+  "prefix": "nx-cache-issue",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nx/angular:webpack-browser",
       "options": {
         "outputPath": "dist/apps/nx-cache-issue",
         "index": "apps/nx-cache-issue/src/index.html",
         "main": "apps/nx-cache-issue/src/main.ts",
-        "polyfills": ["zone.js"],
         "tsConfig": "apps/nx-cache-issue/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/nx-cache-issue/src/favicon.ico",
-          "apps/nx-cache-issue/src/assets"
-        ],
-        "styles": ["apps/nx-cache-issue/src/styles.scss"],
+        "baseHref": "/ui/",
+        "progress": true,
+        "aot": true,
+        "assets": [],
+        "styles": [],
         "scripts": []
       },
       "configurations": {
+        "dev": {
+          "optimization": false,
+          "sourceMap": true,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": false
+        },
+        "int": {
+          "fileReplacements": [
+            {
+              "replace": "apps/nx-cache-issue/src/environments/environment.ts",
+              "with": "apps/nx-cache-issue/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true
+        },
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/nx-cache-issue/src/environments/environment.ts",
+              "with": "apps/nx-cache-issue/src/environments/environment.prod.ts"
+            },
+            {
+              "replace": "apps/nx-cache-issue/src/app/build-specifics/index.ts",
+              "with": "apps/nx-cache-issue/src/app/build-specifics/index.prod.ts"
+            }
+          ],
+          "index": {
+            "input": "apps/nx-cache-issue/src/index.prod.html",
+            "output": "index.html"
+          },
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
           "budgets": [
             {
               "type": "initial",
+              "maximumWarning": "1.01mb",
+              "maximumError": "1.9mb"
+            },
+            {
+              "type": "anyScript",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "1.9mb"
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
             }
-          ],
-          "outputHashing": "all"
-        },
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "vendorChunk": true,
-          "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
+          ]
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:module-federation-dev-server",
       "configurations": {
         "production": {
           "buildTarget": "nx-cache-issue:build:production"
         },
         "development": {
-          "buildTarget": "nx-cache-issue:build:development"
+          "buildTarget": "nx-cache-issue:build:dev"
+        },
+        "e2e-grid": {
+          "buildTarget": "nx-cache-issue:build:e2e-grid"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "proxy.conf.js"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "nx-cache-issue:build"
+        "buildTarget": "landing:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "./apps/nx-cache-issue/src/**/*.ts",
+          "apps/nx-cache-issue/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/nx-cache-issue/jest.config.ts",
+        "passWithNoTests": true,
+        "maxWorkers": "50%"
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "runInBand": true,
+          "workerIdleMemoryLimit": "500MB"
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "nx-cache-issue:build",
+        "port": 4200,
+        "spa": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "nx-cache-issue:build:development"
+        },
+        "production": {
+          "buildTarget": "nx-cache-issue:build:production"
+        }
+      }
+    },
+    "sonar": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "sonar-scanner -Dsonar.projectKey=thunder-ui_{projectName} -Dsonar.sources={projectRoot}/src/app -Dsonar.inclusions={projectRoot}/src/app/** -Dsonar.typescript.tsconfigPath={projectRoot}/tsconfig.json -Dsonar.typescript.lcov.reportPaths=coverage/apps/{projectName}/lcov.info -Dsonar.coverage.exclusions=**/*.spec.ts,**/*.module.ts"
+        ]
+      }
+    },
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/nx-cache-issue"],
+      "options": {
+        "config": "apps/nx-cache-issue/playwright.config.ts",
+        "skipInstall": true
       }
     }
-  }
+  },
+  "tags": ["playwright"]
 }
