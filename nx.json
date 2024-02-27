@@ -1,20 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@pellegrims/nx-remotecache-s3",
-      "options": {
-        "endpoint": "https://bla.com",
-        "bucket": "nx-cache",
-        "region": "bla",
-        "forcePathStyle": true,
-        "readOnly": true,
-        "silent": true,
-        "read": false,
-        "write": false
-      }
-    }
-  },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
