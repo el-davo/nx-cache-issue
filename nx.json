@@ -4,9 +4,9 @@
     "default": {
       "runner": "@pellegrims/nx-remotecache-s3",
       "options": {
-        "endpoint": "https://cloudstorage-onefs-rr2.us.dell.com",
+        "endpoint": "https://bla.com",
         "bucket": "nx-cache",
-        "region": "round-rock",
+        "region": "bla",
         "forcePathStyle": true,
         "readOnly": true,
         "silent": true,
